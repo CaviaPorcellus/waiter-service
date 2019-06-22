@@ -6,11 +6,11 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-#  datasource:
-#    initialization-mode: always
-#    url: jdbc:mysql://172.17.0.2:3306/springbucks?allowPublicKeyRetrieval=true&useSSL=false
-#    username: springbucks
-#    password: springbucks
+  datasource:
+    initialization-mode: always
+    url: jdbc:mysql://172.17.0.2:3306/springbucks?allowPublicKeyRetrieval=true&useSSL=false
+    username: springbucks
+    password: springbucks
 
 management:
   server:
