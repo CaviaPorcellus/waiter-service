@@ -1,0 +1,37 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+#  datasource:
+#    initialization-mode: always
+#    url: jdbc:mysql://172.17.0.2:3306/springbucks?allowPublicKeyRetrieval=true&useSSL=false
+#    username: springbucks
+#    password: springbucks
+
+management:
+  server:
+    port: 8081
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+info:
+  app:
+    name: waiter-service
+    author: "Kevin Jin"
+
+#server:
+#  compression:
+#    enabled: true
+#    min-response-size: 512B
+#  error:
+#    include-stacktrace: always
+#    include-exception: true
