@@ -1,2 +1,0 @@
-america,12.00
-italian,15.00
