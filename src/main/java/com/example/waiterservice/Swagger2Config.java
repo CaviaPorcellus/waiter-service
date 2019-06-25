@@ -41,6 +41,6 @@ public class Swagger2Config {
   }
 
   private Predicate<String> apiPaths() {
-    return PathSelectors.any();
+    return PathSelectors.regex("/coffee/.*|/order/.*");
   }
 }
