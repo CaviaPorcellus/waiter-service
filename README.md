@@ -36,23 +36,23 @@ docker run --name waiter-service-h2 -d -p 8080:8080 -p 8081:8081 helanzhu/waiter
    * Swagger UI: http://localhost:8080/swagger-ui.html
    
 2. We use https://github.com/swagger-api/swagger-codegen to generate API docs and Java API client codes only.
-First, generate client code and doc
-```
-$root-dir: java -jar tool/swagger-codegen-cli.jar generate --input-spec src/main/resources/swagger_v1.0.json --lang java \
-    -o ./generated -Dapis,supportingFiles -DapiTests=false --config gen_client.json
-```
 
-Then, move generated files   
-``` 
-$root-dir: mv generated/docs/ docs
+    First, generate client code and doc
+    ```
+    $root-dir: java -jar tool/swagger-codegen-cli.jar generate --input-spec src/main/resources/swagger_v1.0.json --lang java \
+        -o ./generated -Dapis,supportingFiles -DapiTests=false --config gen_client.json
+    ```
 
-$root-dir: mv generated/src/main/java/com/example/waiterservice/swagger_client src/main/java/com/example/waiterservice/
-```
+    Then, move generated files   
+    ``` 
+    $root-dir: mv generated/docs/ docs
+    $root-dir: mv generated/src/main/java/com/example/waiterservice/swagger_client src/main/java/com/example/waiterservice/
+    ```
 
-Lastly, remove unused files
-```
-$root-dir: rm -rf generated
-```
+    Lastly, remove unused files
+    ```
+    $root-dir: rm -rf generated
+    ```
 
 ## Actuator: Health, Info, Metrics, and so on
 
