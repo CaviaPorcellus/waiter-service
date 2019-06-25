@@ -70,6 +70,7 @@ public class CoffeeController {
     return coffeeService.addCoffee(request.getName(), request.getPrice());
   }
 
+  /*
   @PostMapping(path = "/", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public Coffee addCoffee(@Valid CoffeeRequest request, BindingResult result) {
@@ -111,5 +112,6 @@ public class CoffeeController {
     }
     return created;
   }
+  */
 
 }
