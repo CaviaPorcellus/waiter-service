@@ -1,0 +1,22 @@
+{
+  "sortParamsByRequiredFlag": true,
+  "ensureUniqueParams": true,
+  "allowUnicodeIdentifiers": false,
+  "modelPackage": "com.example.waiterservice.model",
+  "apiPackage": "com.example.waiterservice.swagger_client.api",
+  "invokerPackage": "com.example.waiterservice.swagger_client.invoker",
+  "serializableModel": false,
+  "bigDecimalAsString": false,
+  "fullJavaUtil": false,
+  "hideGenerationTimestamp": false,
+  "withXml": false,
+  "dateLibrary": "legacy",
+  "java8": true,
+  "disableHtmlEscaping": true,
+  "supportJava6": false,
+  "useBeanValidation": false,
+  "performBeanValidation": false,
+  "useGzipFeature": false,
+  "useRuntimeException": false,
+  "library": "resttemplate"
+}
