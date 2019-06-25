@@ -24,7 +24,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-25T20:37:48.753+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-25T20:53:40.634+08:00")
 @Component("com.example.waiterservice.swagger_client.api.CoffeeOrderControllerApi")
 public class CoffeeOrderControllerApi {
     private ApiClient apiClient;
