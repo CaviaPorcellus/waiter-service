@@ -1,4 +1,4 @@
-package com.example.waiterservice.controller.request;
+package com.example.waiterservice.model;
 
 import lombok.Data;
 
