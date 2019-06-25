@@ -1,6 +1,6 @@
 package com.example.waiterservice.controller;
 
-import com.example.waiterservice.controller.request.OrderRequest;
+import com.example.waiterservice.model.OrderRequest;
 import com.example.waiterservice.model.Coffee;
 import com.example.waiterservice.model.CoffeeOrder;
 import com.example.waiterservice.service.CoffeeOrderService;

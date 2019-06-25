@@ -1,13 +1,9 @@
 package com.example.waiterservice.controller;
 
-import com.example.waiterservice.controller.request.CoffeeRequest;
+import com.example.waiterservice.model.CoffeeRequest;
 import com.example.waiterservice.model.Coffee;
 import com.example.waiterservice.service.CoffeeService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.joda.money.CurrencyUnit;
-import org.joda.money.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
@@ -22,13 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -54,17 +45,18 @@ public class CoffeeController {
             .body(c);
   }
 
+  /*
   @GetMapping(path = "/", params = "name")
   public Coffee getByName(@RequestParam String name) {
     return coffeeService.getCoffee(name);
   }
+  */
 
   @PostMapping(path = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public Coffee addJsonCoffee(@RequestBody @Valid CoffeeRequest request, BindingResult result) {
     if (result.hasErrors()) {
       log.error("Binding errors: {}", result);
-//      throw new ValidationException(result.toString());
       return null;
     }
     return coffeeService.addCoffee(request.getName(), request.getPrice());
