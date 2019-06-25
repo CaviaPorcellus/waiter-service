@@ -46,7 +46,7 @@ docker run --name waiter-service-h2 -d -p 8080:8080 -p 8081:8081 helanzhu/waiter
     Then, move generated files   
     ``` 
     $root-dir: mv generated/docs/ docs
-    $root-dir: mv generated/src/main/java/com/example/waiterservice/swagger_client src/main/java/com/example/waiterservice/
+    $root-dir: mv generated/src/main/java/com/example/waiterservice/swagger_client swagger_client
     ```
 
     Lastly, remove unused files
