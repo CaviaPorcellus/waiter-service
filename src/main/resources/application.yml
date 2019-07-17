@@ -6,12 +6,10 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-#  cloud:
-#    consul:
-#      host: localhost
-#      port: 8500
-#      discovery:
-#        prefer-ip-address: true
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
 
 management:
 #  server:
