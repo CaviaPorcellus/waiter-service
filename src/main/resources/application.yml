@@ -30,7 +30,7 @@ info:
     author: "Kevin Jin"
 
 server:
-  port: 0
+  port: 8080
 
 #server:
 #  compression:
