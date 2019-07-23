@@ -3,6 +3,7 @@ package com.example.waiterservice.controller;
 import com.example.waiterservice.model.CoffeeRequest;
 import com.example.waiterservice.model.Coffee;
 import com.example.waiterservice.service.CoffeeService;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
@@ -26,10 +27,11 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @RestController
 @RequestMapping(path = "/coffee")
+@RateLimiter(name = "coffee")
 public class CoffeeController {
 
   @Autowired
-  CoffeeService coffeeService;
+  private CoffeeService coffeeService;
 
   @GetMapping(path = "/", params = "!name")
   public List<Coffee> getAll() {
