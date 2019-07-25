@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Type;
+import org.joda.money.Money;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,5 +36,13 @@ public class CoffeeOrder extends BaseEntity {
   @Enumerated
   @Column(nullable = false)
   private OrderState state;
+
+  private Integer discount;
+
+  @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentMoneyMinorAmount",
+      parameters = {@org.hibernate.annotations.Parameter(name = "currencyCode", value = "CNY")})
+  private Money total;
+
+  private String waiter;
 
 }
