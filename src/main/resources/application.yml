@@ -1,17 +1,30 @@
 spring:
+  cloud:
+    stream:
+      bindings:
+        finishedOrders:
+          group: waiter-service
+  datasource:
+    initialization-mode: always
+    #    url: jdbc:mysql://mysql:3306/springbucks?allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/springbucks?allowPublicKeyRetrieval=true&useSSL=false
+    username: springbucks
+    password: springbucks
   jpa:
     hibernate:
       ddl-auto: none
     properties:
       hibernate:
-        show_sql: true
-        format_sql: true
-  datasource:
-    initialization-mode: always
-#    url: jdbc:mysql://mysql:3306/springbucks?allowPublicKeyRetrieval=true&useSSL=false
-    url: jdbc:mysql://localhost:3306/springbucks?allowPublicKeyRetrieval=true&useSSL=false
-    username: springbucks
-    password: springbucks
+        show_sql: false
+        format_sql: false
+  output:
+    ansi:
+      enabled: ALWAYS
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: spring
+    password: spring
 
 management:
   endpoints:
@@ -26,9 +39,6 @@ info:
   app:
     name: waiter-service
     author: "Kevin Jin"
-
-server:
-  port: 8080
 
 order:
   discount: 95
@@ -50,7 +60,8 @@ resilience4j:
         register-health-indicator: true
 
 
-#server:
+server:
+  port: 8080
 #  compression:
 #    enabled: true
 #    min-response-size: 512B

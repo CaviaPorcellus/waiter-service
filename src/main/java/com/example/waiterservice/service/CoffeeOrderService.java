@@ -1,5 +1,6 @@
 package com.example.waiterservice.service;
 
+import com.example.waiterservice.integration.Barista;
 import com.example.waiterservice.model.Coffee;
 import com.example.waiterservice.model.CoffeeOrder;
 import com.example.waiterservice.model.OrderState;
@@ -11,6 +12,7 @@ import io.micrometer.core.instrument.binder.MeterBinder;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.money.Money;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -30,6 +32,8 @@ public class CoffeeOrderService implements MeterBinder {
   CoffeeOrderRepository orderRepository;
   @Autowired
   OrderProperties orderProperties;
+  @Autowired
+  Barista barista;
 
   private String waiterId = UUID.randomUUID().toString();
 
@@ -51,13 +55,21 @@ public class CoffeeOrderService implements MeterBinder {
   }
 
   public boolean updateOrder(CoffeeOrder order, OrderState state) {
+    if (order == null) {
+      log.warn("Cannot find order.");
+      return false;
+    }
     if (state.compareTo(order.getState()) <= 0) {
       log.error("Wrong State order: {} -> {}", order.getState(), state);
       return false;
     }
     order.setState(state);
-    CoffeeOrder saved = orderRepository.save(order);
-    log.info("Saved order: {}", saved);
+    orderRepository.save(order);
+    log.info("Updated order: {}", order);
+    if (state == OrderState.PAID) {
+      // send messages
+      barista.newOrders().send(MessageBuilder.withPayload(order.getId()).build());
+    }
     return true;
   }
 

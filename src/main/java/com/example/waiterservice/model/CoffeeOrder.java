@@ -45,4 +45,6 @@ public class CoffeeOrder extends BaseEntity {
 
   private String waiter;
 
+  private String barista;
+
 }
