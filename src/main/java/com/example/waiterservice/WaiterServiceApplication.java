@@ -2,6 +2,7 @@ package com.example.waiterservice;
 
 import com.example.waiterservice.controller.PerformanceInterceptor;
 import com.example.waiterservice.integration.Barista;
+import com.example.waiterservice.integration.Customer;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -23,7 +24,7 @@ import java.util.TimeZone;
 @EnableCaching
 @EnableJpaRepositories
 @EnableDiscoveryClient
-@EnableBinding(Barista.class)
+@EnableBinding({ Barista.class, Customer.class })
 public class WaiterServiceApplication implements WebMvcConfigurer {
 
 	public static void main(String[] args) {
