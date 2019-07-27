@@ -1,0 +1,364 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "SpringBucks Waiter Service",
+    "version": "1.0",
+    "title": "SpringBucks Waiter Service",
+    "contact": {
+      "name": "Kevin Jin",
+      "email": "kevin.jin01@sap.com"
+    },
+    "license": {
+      "name": "Apache License Version 2.0",
+      "url": "https://github.com/CaviaPorcellus/waiter-service"
+    }
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "coffee-controller",
+      "description": "Coffee Controller"
+    },
+    {
+      "name": "coffee-order-controller",
+      "description": "Coffee Order Controller"
+    }
+  ],
+  "paths": {
+    "/coffee/": {
+      "get": {
+        "tags": [
+          "coffee-controller"
+        ],
+        "summary": "getAll",
+        "operationId": "getAllUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Coffee"
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "coffee-controller"
+        ],
+        "summary": "addJsonCoffee",
+        "operationId": "addJsonCoffeeUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CoffeeRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/Coffee"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/coffee/{id}": {
+      "get": {
+        "tags": [
+          "coffee-controller"
+        ],
+        "summary": "getById",
+        "operationId": "getByIdUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Coffee"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/order/": {
+      "post": {
+        "tags": [
+          "coffee-order-controller"
+        ],
+        "summary": "createOrder",
+        "operationId": "createOrderUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "orderRequest",
+            "description": "orderRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/CoffeeOrder"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/order/{id}": {
+      "get": {
+        "tags": [
+          "coffee-order-controller"
+        ],
+        "summary": "getOrder",
+        "operationId": "getOrderUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CoffeeOrder"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "definitions": {
+    "Coffee": {
+      "type": "object",
+      "properties": {
+        "createTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "price": {
+          "$ref": "#/definitions/Money"
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "title": "Coffee"
+    },
+    "CoffeeOrder": {
+      "type": "object",
+      "properties": {
+        "createTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "customer": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Coffee"
+          }
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "INIT",
+            "PAID",
+            "BREWING",
+            "BREWED",
+            "TAKEN",
+            "CANCELLED"
+          ]
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "title": "CoffeeOrder"
+    },
+    "CoffeeRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "price": {
+          "$ref": "#/definitions/Money"
+        }
+      },
+      "title": "CoffeeRequest"
+    },
+    "CurrencyUnit": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "countryCodes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "decimalPlaces": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "numeric3Code": {
+          "type": "string"
+        },
+        "numericCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pseudoCurrency": {
+          "type": "boolean"
+        },
+        "symbol": {
+          "type": "string"
+        }
+      },
+      "title": "CurrencyUnit"
+    },
+    "Money": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number"
+        },
+        "amountMajor": {
+          "type": "number"
+        },
+        "amountMajorInt": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amountMajorLong": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "amountMinor": {
+          "type": "number"
+        },
+        "amountMinorInt": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amountMinorLong": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "currencyUnit": {
+          "$ref": "#/definitions/CurrencyUnit"
+        },
+        "minorPart": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "negative": {
+          "type": "boolean"
+        },
+        "negativeOrZero": {
+          "type": "boolean"
+        },
+        "positive": {
+          "type": "boolean"
+        },
+        "positiveOrZero": {
+          "type": "boolean"
+        },
+        "scale": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "zero": {
+          "type": "boolean"
+        }
+      },
+      "title": "Money"
+    },
+    "OrderRequest": {
+      "type": "object",
+      "properties": {
+        "coffeeNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "customer": {
+          "type": "string"
+        }
+      },
+      "title": "OrderRequest"
+    }
+  }
+}

@@ -4,16 +4,22 @@ import com.example.waiterservice.model.Coffee;
 import com.example.waiterservice.model.CoffeeOrder;
 import com.example.waiterservice.model.OrderState;
 import com.example.waiterservice.repository.CoffeeOrderRepository;
+import com.example.waiterservice.support.OrderProperties;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.binder.MeterBinder;
 import lombok.extern.slf4j.Slf4j;
+import org.joda.money.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.RoundingMode;
 import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -22,6 +28,10 @@ public class CoffeeOrderService implements MeterBinder {
 
   @Autowired
   CoffeeOrderRepository orderRepository;
+  @Autowired
+  OrderProperties orderProperties;
+
+  private String waiterId = UUID.randomUUID().toString();
 
   private Counter counter;
 
@@ -30,6 +40,9 @@ public class CoffeeOrderService implements MeterBinder {
         .customer(customer)
         .items(Arrays.asList(coffee))
         .state(OrderState.INIT)
+        .discount(orderProperties.getDiscount())
+        .total(calcTotal(coffee))
+        .waiter(orderProperties.getPrefix() + waiterId)
         .build();
     CoffeeOrder saved = orderRepository.save(order);
     log.info("New order: {}", saved);
@@ -58,5 +71,12 @@ public class CoffeeOrderService implements MeterBinder {
         .description("Order count")
         .tag("service", "Coffee order service")
         .register(registry);
+  }
+
+  private Money calcTotal(Coffee...coffee) {
+    List<Money> items = Stream.of(coffee).map(c -> c.getPrice())
+        .collect(Collectors.toList());
+    return Money.total(items).multipliedBy(orderProperties.getDiscount())
+        .dividedBy(100, RoundingMode.HALF_UP);
   }
 }
