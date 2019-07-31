@@ -3,9 +3,11 @@ version: '2'
 services:
   zookeeper:
     image: zookeeper:latest
+    container_name: zookeeper
 
   kafka:
     image: confluentinc/cp-kafka:latest
+    container_name: kafka
     depends_on:
       - zookeeper
     ports:
