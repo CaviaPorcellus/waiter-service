@@ -3,7 +3,6 @@ LABEL maintainer="kevin.jin01@sap.com"
 
 WORKDIR /waiter-service
 EXPOSE 8080
-EXPOSE 8081
 
 ARG JAR_FILE
 ADD target/${JAR_FILE} ./waiter-service.jar
